@@ -35,7 +35,7 @@ int NotCorSq(qadr *eqal, double *x1){
     if(b == 0 && c != 0){
         return 0;
     }
-    *x1 = -c / b;
+    *x1 = -c / b * 3;
     return 1;
 
 }
@@ -93,7 +93,7 @@ void NumOfSol(qadr *eqal){
 
 void ScanInput(qadr *eqal){
     int dbl_count = scanf("%lg %lg %lg", &(eqal->a), &(eqal->b), &(eqal->c));
-    if(dbl_count < 3){
+    if(dbl_count != 3){
         printf("Wrong input");
     }
     else{

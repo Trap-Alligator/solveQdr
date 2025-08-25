@@ -2,6 +2,28 @@
 #include <math.h>
 #include "UnitTest.h"
 
+//-----------------------------------------------------------------------------------------------
+//! печать общей части всех выводов
+//-----------------------------------------------------------------------------------------------
+void PrintStart(qadr *testent, double x1, double x2, double x1norm, double x2norm, int count_sol_norm, int count_sol){
+    char buffer[200];
+    sprintf(buffer, "NO: a = %lg, b = %lg, c = %lg\nCurrent: x1 = %lg, x2 = %lg, count_sol = %i\n",\
+    testent->a, testent->b, testent->c, x1, x2, count_sol);
+    switch(count_sol_norm){
+        case 2:
+            printf("%sAns: x1 = %lg, x2 = %lg, count_sol = %i\n", buffer, x1norm, x2norm, count_sol_norm);
+            break;
+        case 1:
+            printf("%sAns: x1 = %lg, x2 = 0, count_sol = %i\n", buffer, x1norm, count_sol_norm);
+            break;
+        case 0:
+
+        case INF_SOL:
+            printf("%s Ans: x1 = 0, x2 = 0, count_sol = %i\n", buffer, count_sol_norm);
+            break;
+    }
+}
+
 //------------------------------------------------------------
 //! обработка готовых входных данных
 //------------------------------------------------------------
@@ -14,29 +36,10 @@ void TestHelp(qadr *testent, qadr_res *testext){
 
     int count_sol = SqSol(testent, &x1, &x2);
 
-    char buffer[200];
+    bool flag = (count_sol_norm == count_sol);
 
-    sprintf(buffer, "NO: a = %lg, b = %lg, c = %lg -> x1 = %lg, x2 = %lg, count_sol = %i",\
-    testent->a, testent->b, testent->c, x1, x2, count_sol);
-
-    switch(count_sol_norm){
-        case 2:
-            if(!(count_sol_norm == count_sol && IsSameDbl(x1, x1norm)== 1 && IsSameDbl(x2, x2norm) == 1)){
-                printf("%s(should be x1 = %lg, x2 = %lg, count_sol = %i)\n", buffer, x1norm, x2norm, count_sol_norm);
-            }
-            break;
-        case 1:
-            if(!(count_sol_norm == count_sol && IsSameDbl(x1, x1norm)== 1)){
-                printf("%s(should be x1 = %lg, count_sol = %i)\n", buffer, x1norm, count_sol_norm);
-            }
-            break;
-        case 0:
-
-        case INF_SOL:
-            if(!(count_sol_norm == count_sol)){
-                printf("%s(should be count_sol = %i)\n", buffer, count_sol_norm);
-            }
-            break;
+    if(!(flag && IsSameDbl(x1, x1norm) == 1 && IsSameDbl(x2, x2norm) == 1)){
+        PrintStart(testent, x1, x2, x1norm, x2norm, count_sol_norm, count_sol);
     }
 }
 
