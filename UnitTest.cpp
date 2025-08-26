@@ -9,19 +9,7 @@ void PrintStart(qadr *testent, double x1, double x2, double x1norm, double x2nor
     char buffer[200];
     sprintf(buffer, "NO: a = %lg, b = %lg, c = %lg\nCurrent: x1 = %lg, x2 = %lg, count_sol = %i\n",\
     testent->a, testent->b, testent->c, x1, x2, count_sol);
-    switch(count_sol_norm){
-        case 2:
-            printf("%sAns: x1 = %lg, x2 = %lg, count_sol = %i\n", buffer, x1norm, x2norm, count_sol_norm);
-            break;
-        case 1:
-            printf("%sAns: x1 = %lg, x2 = 0, count_sol = %i\n", buffer, x1norm, count_sol_norm);
-            break;
-        case 0:
-
-        case INF_SOL:
-            printf("%s Ans: x1 = 0, x2 = 0, count_sol = %i\n", buffer, count_sol_norm);
-            break;
-    }
+    printf("%sAns: x1 = %lg, x2 = %lg, count_sol = %i\n", buffer, x1norm, x2norm, count_sol_norm);
 }
 
 //------------------------------------------------------------
