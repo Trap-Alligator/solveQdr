@@ -1,4 +1,5 @@
-SOLVESQ/qd.o
-SOLVESQ/UnitTest.o
-SOLVESQ/NumOfSol
-SOLVESQ/qd.exe
+.vscode
+qd.o
+UnitTest.o
+NumOfSol
+qd.exe

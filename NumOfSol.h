@@ -1,8 +1,6 @@
 #ifndef NUM_OF_SOL_H
 #define NUM_OF_SOL_H
 
-#define INF_SOL -1
-
 typedef struct {
     double a, b, c;
 } qadr;

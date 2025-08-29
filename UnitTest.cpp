@@ -5,17 +5,18 @@
 #include "NumOfSol.h"
 
 //-----------------------------------------------------------------------------------------------
-//! печать неправильно решенного примера
+//! Печать неправильно решенного примера
+//! На вход даются коэф., получившиеся корни и кол-во ответов, правильные корни и кол-во ответов
 //-----------------------------------------------------------------------------------------------
 void PrintWrong(qadr *testent, double x1, double x2, double x1norm, double x2norm, int count_sol_norm, int count_sol){
-    char buffer[200];
-    sprintf(buffer, "NO: a = %lg, b = %lg, c = %lg\nCurrent: x1 = %lg, x2 = %lg, count_sol = %i\n",\
+    printf("NO: a = %lg, b = %lg, c = %lg\nCurrent: x1 = %lg, x2 = %lg, count_sol = %i\n",\
     testent->a, testent->b, testent->c, x1, x2, count_sol);
-    printf("%sAns: x1 = %lg, x2 = %lg, count_sol = %i\n", buffer, x1norm, x2norm, count_sol_norm);
+    printf("Ans: x1 = %lg, x2 = %lg, count_sol = %i\n", x1norm, x2norm, count_sol_norm);
 }
 
 //----------------------------------------------------------------------
-//! обработка готовых входных данных
+//! Обработка готовых входных данных
+//! На вход даются получившиеся ответы и правильные ответы
 //----------------------------------------------------------------------
 void TestHelp(qadr *testent, qadr_res *testext){
     double x1 = 0, x2 = 0;
@@ -34,13 +35,21 @@ void TestHelp(qadr *testent, qadr_res *testext){
 }
 
 //------------------------------------------------------------
-//! тестирование программы на готовых входных данных
+//! Тестирование программы на готовых входных данных
 //------------------------------------------------------------
 void UnitTest(){
-    qadr testent[5] = {{1, 3, 2}, {4, 0, -1}, {4, 3, 1}, {0, 2, 9}, {0, 0, 0}};
-    qadr_res testext[5] = {{-1, -2, 2}, {0.5, -0.5, 2}, {0, 0, 0}, {-4.5, 0, 1}, {0, 0, INF_SOL}};
-    for(int i = 0; i < 5; i++){
-        TestHelp(&testent[i], &testext[i]);
+    FILE* key_test = fopen("KeyForTest.txt", "r");
+    if(key_test == 0){
+        printf("Wrong file\n");
+    }
+    else{
+        qadr testent[5] = {};
+        qadr_res testext[5] = {};
+        for(int i = 0; i < 5; i++){
+            fscanf(key_test, "%lg, %lg, %lg, %lg, %lg, %i", &(testent[i].a), &(testent[i].b),
+             &(testent[i].c), &(testext[i].x1),  &(testext[i].x2), &(testext[i].count_sol));
+            TestHelp(&testent[i], &testext[i]);
+        }
     }
 }
 
